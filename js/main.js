@@ -1,5 +1,5 @@
 var wing_dev = 'http://www.wing-946e.dev.yelp.com';
-var app_url = 'http://localhost/~ben/Code/burger-search';
+var app_url = 'http://people/~bknight/burger-search';
 var $views = $('#view div');
 var $map = $('#map');
 var $grid = $('#grid');
@@ -40,25 +40,15 @@ function convertPhotoURL(photo_url, to_size) {
 function getItemHTML(item) {
 	var img = $('<img>').attr({
 		'src': item.photo_url,
-		'title': item.item_name,
 		'alt': item.item_name + ' @ ' + item.biz_name
 	});
 	return $('<a>').attr({
 		'href': 'http://yelp.com' + item.item_url,
-		'title': item.item_name
+		'title': ''
 	}).append(img);
 }
 
 function getPhotos(params) {
-
-	$(document.body).addClass('loading');
-	$grid.empty();
-
-	// clear existing markers
-	for ( var i = 0; i < markers.length; i++ ) {
-		markers[i].setMap( null );
-	}
-
 	params = $.extend(
 		{
 			'term': $q.text(),
@@ -66,10 +56,18 @@ function getPhotos(params) {
 				'lat': lat,
 				'lon': lon
 			},
-			'radius': 1.0
+			'radius': 2.0
 		},
 		params
 	);
+
+	$(document.body).addClass('loading');
+	$grid.empty();
+
+	// clear existing markers
+	for ( var i = 0; i < markers.length; i++ ) {
+		markers[i].setMap(null);
+	}
 
 	console.log(params);
 
@@ -82,38 +80,7 @@ function getPhotos(params) {
 			$.each(data, function(index, item) {
 				// grid
 				$grid.append( getItemHTML(item) );
-
-				// map
-				var marker = new google.maps.Marker({
-					position: new google.maps.LatLng(
-						item.location['lat'], item.location['long']
-					),
-					map: gmaps,
-					icon: convertPhotoURL(item.photo_url, 'ss'),
-					shadow: {
-						url: app_url + '/img/marker-shadow.png',
-						anchor: new google.maps.Point(23, 43)
-					}
-				});
-				markers.push( marker );
-				var infowindow = new google.maps.InfoWindow({
-					content: [
-						'<h3 style="margin: 0;">',
-							'<a href="http://yelp.com' + item.item_url + '">',
-								item.item_name,
-							'</a>',
-						'</h3>',
-						'<p style="margin-top: .3em;">@ ' + item.biz_name + '</p>',
-						'<img src="' + item.photo_url + '">'
-					].join('')
-				});
-				google.maps.event.addListener(marker, 'click', function() {
-					if ( active_infowindow ) {
-						active_infowindow.close();
-					}
-					infowindow.open(gmaps, marker);
-					active_infowindow = infowindow;
-				});
+				addMapMarker(index, item);
 			});
 			$grid.justifiedGallery(gallery_options);
 		}
@@ -128,6 +95,58 @@ function initMap() {
 		mapTypeId: google.maps.MapTypeId.ROADMAP
 	};
 	gmaps = new google.maps.Map(document.getElementById('map'), mapOptions);
+}
+
+function addMapMarker(index, item) {
+	var marker = new google.maps.Marker({
+		position: new google.maps.LatLng(
+			item.location['lat'], item.location['long']
+		),
+		map: gmaps,
+		icon: app_url + '/img/marker.png',
+		shadow: {
+			url: app_url + '/img/marker-shadow.png',
+			anchor: new google.maps.Point(23, 31)
+		},
+		zIndex: index * 2
+	});
+
+	var photo_marker = new google.maps.Marker({
+		anchor: new google.maps.Point(0, 43),
+		position: new google.maps.LatLng(
+			item.location['lat'], item.location['long']
+		),
+		map: gmaps,
+		icon: {
+			url: convertPhotoURL(item.photo_url, 'ss'),
+			anchor: new google.maps.Point(20, 52)
+		},
+		clickable: false,
+		zIndex: index * 2 + 1
+	});
+
+	var infowindow = new google.maps.InfoWindow({
+		content: [
+			'<h3 style="margin: 0;">',
+				'<a target="_blank" href="http://yelp.com' + item.item_url + '">',
+					item.item_name,
+				'</a>',
+			'</h3>',
+			'<p style="margin-top: .3em;">@ ' + item.biz_name + '</p>',
+			'<img width="400" src="' + item.photo_url + '">'
+		].join('')
+	});
+
+	google.maps.event.addListener(marker, 'click', function() {
+		if ( active_infowindow ) {
+			active_infowindow.close();
+		}
+		infowindow.open(gmaps, marker);
+		active_infowindow = infowindow;
+	});
+
+	markers.push(marker);
+	markers.push(photo_marker);
 }
 
 /** Keyboard Events */

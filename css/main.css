@@ -3,7 +3,7 @@ html, body { height: 100%; }
 body {
 	padding-top: 70px;
 	font-family: 'Helvetica Neue', Arial, sans-serif;
-	background: hsl(0, 0%, 20%);
+	background: hsl(0, 0%, 15%);
 }
 
 * { box-sizing: border-box; }
@@ -40,15 +40,14 @@ a:hover {
 	display: inline-block;
 	width: 400px;
 	float: left;
-	margin: 20px 0 0 30px;
+	margin: 23px 0 0 30px;
 	padding-left: 25px;
 	font-size: 19px;
 	font-weight: 200;
-	line-height: 30px;
 	outline: 0;
 	white-space: nowrap;
 	overflow: hidden;
-	background: url(../img/mag-glass.png) left center no-repeat;
+	background: url(../img/mag-glass.png) left 60% no-repeat;
 }
 
 #view-toggle {
