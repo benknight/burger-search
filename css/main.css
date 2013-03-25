@@ -1,0 +1,105 @@
+html, body { height: 100%; }
+
+body {
+	padding-top: 70px;
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+	background: hsl(0, 0%, 20%);
+}
+
+* { box-sizing: border-box; }
+
+a {
+	color: #3b65a7;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+#header {
+	z-index: 1;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 70px;
+	padding: 0 40px;
+	color: white;
+	background:
+		url(../img/stars-pattern.png) no-repeat center,
+			linear-gradient(#d21401, #c41200);
+	box-shadow: 0 0 5px hsla(0, 0%, 0%, .5);
+}
+
+#header img {
+	float: left;
+	margin: 10px 0 0 0;
+}
+
+#query {
+	display: inline-block;
+	width: 400px;
+	float: left;
+	margin: 20px 0 0 30px;
+	padding-left: 25px;
+	font-size: 19px;
+	font-weight: 200;
+	line-height: 30px;
+	outline: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	background: url(../img/mag-glass.png) left center no-repeat;
+}
+
+#view-toggle {
+	float: right;
+	margin: 0 20px 0 0;
+}
+
+#view-toggle .btn {
+	cursor: pointer;
+	float: left;
+	padding: 0 30px;
+	height: 70px;
+	line-height: 70px;
+	font-weight: 500;
+	color: hsla(0, 0%, 100%, .97);
+	text-align: center;
+	text-decoration: none;
+}
+
+#view-toggle .btn.active {
+	box-shadow: inset 1px 0 50px hsla(0, 0%, 0%, .5);
+}
+
+#view,
+#view > * {
+	height: 100%;
+}
+
+#grid {
+	padding: 10px;
+}
+
+#map {
+	display: none;
+}
+
+/* JG overrrides */
+.jg-loading {
+	display: none;
+}
+
+#loader {
+	display: none;
+	position: absolute;
+	top: 300px;
+	left: 50%;
+	margin: 0 0 0 -32px;
+	opacity: .5;
+	text-shadow: none;
+}
+
+.loading #loader {
+	display: block;
+}

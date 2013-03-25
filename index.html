@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Burger Search</title>
+		<link rel="stylesheet" href="css/normalize.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/loaders.css">
+		<link rel="stylesheet" href="css/jquery.justifiedgallery.css">
+		<script src="js/vendor/prefixfree.min.js"></script>
+	</head>
+	<body>
+		<div id="header">
+			<img src="img/logo.png" alt="Yelp logo">
+			<p id="query" contenteditable="true">Burgers</p>
+			<div id="view-toggle">
+				<a class="btn active" id="grid-toggle">Grid</a>
+				<a class="btn">Map</a>
+			</div>
+		</div>
+
+		<div id="loader" class="spinner icon-spinner-3"></div>
+		<div id="view">
+			<div id="grid"></div>
+			<div id="map"></div>
+		</div>
+
+		<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="js/vendor/jquery.justifiedgallery.js"></script>
+		<script src="js/plugins.js"></script>
+		<script src="js/main.js"></script>
+	</body>
+</html>
