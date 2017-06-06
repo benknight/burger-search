@@ -1,3 +1,4 @@
+var lat, lon;
 var wing_dev = 'http://www.wing-946e.dev.yelp.com';
 var app_url = 'http://people/~bknight/burger-search';
 var $views = $('#view div');

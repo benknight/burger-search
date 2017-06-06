@@ -25,9 +25,10 @@ a:hover {
 	height: 70px;
 	padding: 0 40px;
 	color: white;
+	background-color: #c41200;
 	background:
 		url(../img/stars-pattern.png) no-repeat center,
-			linear-gradient(#d21401, #c41200);
+		linear-gradient(#d21401, #c41200);
 	box-shadow: 0 0 5px hsla(0, 0%, 0%, .5);
 }
 
